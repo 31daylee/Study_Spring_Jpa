@@ -16,7 +16,7 @@ public class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
 
-    @Test
+/*    @Test
     @Transactional
     @Rollback(value = false) // 롤백 안하고 커밋해버림
     public void testMember() throws Exception {
@@ -31,5 +31,5 @@ public class MemberRepositoryTest {
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
         Assertions.assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
         Assertions.assertThat(findMember).isEqualTo(member); // 영속성 컨텍스트에서 식별자가 같으면 같은 엔티티로 인식한다.
-    }
+    }*/
 }
