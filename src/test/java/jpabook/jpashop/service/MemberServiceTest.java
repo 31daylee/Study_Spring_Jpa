@@ -6,11 +6,8 @@ import jpabook.jpashop.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,11 +49,11 @@ class MemberServiceTest {
         member2.setName("kim");
         // when
         memberService.join(member1);
-        Assertions.assertThrows(IllegalStateException.class, () -> memberService.join(member2));// 똑같은 이름이므로 예외가 발생한다!!
+        Assertions.assertThrows(IllegalStateException.class,() -> memberService.join(member2));// 똑같은 이름이므로 예외가 발생한다!!
 
 
         // then
-        fail("예외가 발생해야 한다.");
+        Assertions.fail("예외가 발생해야 한다.");
     }
 
 }
