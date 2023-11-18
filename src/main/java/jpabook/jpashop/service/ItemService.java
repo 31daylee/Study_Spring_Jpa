@@ -1,5 +1,6 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,16 @@ public class ItemService {
 
     @Transactional // 오버라이딩 해서 읽기가 아닌 트랜잭션되도록. 즉, 저장이 되도록 바꿈
     public void saveItem(Item item){
+
         itemRepository.save(item);
+    }
+    @Transactional
+    public Item updateItem(Long itemId, String name, int price, int stockQuantity){
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setPrice(price);
+        findItem.setName(name);
+        findItem.setStockQuantity(stockQuantity);
+        return findItem;
     }
 
     public List<Item> findItems(){
