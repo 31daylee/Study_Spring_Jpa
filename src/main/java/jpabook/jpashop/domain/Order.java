@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자가 아닌 생성메서드를 이용해야함을 알리는 것
 public class Order {
 
     @Id @GeneratedValue
@@ -22,10 +25,10 @@ public class Order {
     // 연관관계 주인 설정 필요 ) 값이 변경이 되었을 때 FK를 변경해주는 것이 연관관계의 주인
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // CascadeType.ALl: Order를 persist 하면 OrderItem 도 persist
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL) // 다른 곳에서 Delivery 를 쓴다면 cascade를 막 사용하면 안됨. 차라리 각각의 레포를 파서 persist 해야한다.
     @JoinColumn(name = "delivery_id") // 일대일 관계에서 연관관계 주인은 Order!
     private Delivery delivery;
 
